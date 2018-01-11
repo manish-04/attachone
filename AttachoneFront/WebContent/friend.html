@@ -1,0 +1,275 @@
+
+<!DOCTYPE html><html class='' ng-controller="friendController">
+<head >
+
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'><link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+<style class="cp-pen-styles">body{
+	margin:0;
+	color:#444;
+	background:-webkit-linear-gradient(45deg, hsla(37,65%,87%,1) 0%,hsla(37,42%,51%,1)
+	 69%,hsla(37,42%,58%,1) 99%,hsla(37,42%,58%,1) 99%,hsla(37,55%,81%,1) 100%);;
+	font:300 16px/18px Roboto, sans-serif;
+}
+*,:after,:before{box-sizing:border-box}
+.pull-left{float:left}
+.pull-right{float:right}
+.clearfix:after,.clearfix:before{content:'';display:table}
+.clearfix:after{clear:both;display:block}
+
+.toggle{
+	display:none;
+}
+.social-share-wrap{
+	overflow:hidden;
+	background:#7cac7e;
+	margin:10% auto 0;
+	min-height:370px;
+	border-radius:8px;
+	position:relative;
+	box-shadow:0 25px 55px 0 rgba(0,0,0,.21),0 16px 28px 0 rgba(0,0,0,.22);
+}
+.social-share-wrap .cover{
+	width:100%;
+	height:152px;
+	background:#d96255;
+	opacity:1;
+	-webkit-transform:translateY(0);
+	        transform:translateY(0);
+	-webkit-transition:all .6s ease-in-out .4s;
+	transition:all .6s ease-in-out .4s;
+}
+.social-share-wrap .cover {
+	width:100%;
+	opacity:.8;
+}
+
+.image
+{
+	
+	height:100%;
+	padding-left: 20px;
+	opacity:.95;
+}
+
+
+
+.social-share-wrap .content{
+	padding:15px;
+	position:relative;
+}
+.social-share-wrap .content .title,
+.social-share-wrap .content .text,
+.social-share-wrap .content .price{
+	opacity:1;
+	-webkit-transform:translateY(0);
+	        transform:translateY(0);
+	-webkit-transition:all .6s ease-in-out .4s;
+	transition:all .6s ease-in-out .4s;
+}
+.social-share-wrap .content .label{
+	top:-15px;
+	right:15px;
+	width:40px;
+	height:40px;
+	color:#eee;
+	cursor:pointer;
+	font-size:18px;
+	line-height:40px;
+	text-align:center;
+	border-radius:50%;
+	position:absolute;
+	font-weight:normal;
+	background:#34a3be;
+	-webkit-transform:scale(1);
+	        transform:scale(1);
+	-webkit-transition:all .3s ease-in-out .6s;
+	transition:all .3s ease-in-out .6s;
+}
+.social-share-wrap .content .title{
+	margin-bottom:15px;
+	text-transform:uppercase;
+	-webkit-transition-duration:.4s;
+	        transition-duration:.4s;
+}
+.social-share-wrap .content .text{
+	display:block;
+	line-height:24px;
+	-webkit-transition-duration:.6s;
+	        transition-duration:.6s;
+}
+.social-share-wrap .content .price{
+	font-size:36px;
+	font-weight:500;
+	line-height:36px;
+	margin:30px 0 15px;
+	-webkit-transition-duration:.8s;
+	        transition-duration:.8s;
+}
+.social-share-wrap .content .buy{
+	right:15px;
+	bottom:30px;
+	padding:8px;
+	color:inherit;
+	font-weight:400;
+	font-size:18px;
+	position:absolute;
+	text-decoration:none;
+	text-transform:uppercase;
+	-webkit-transition:all .2s ease-in-out 0s;
+	transition:all .2s ease-in-out 0s;
+}
+.social-share-wrap .content .buy:hover{
+	background:#ddd;
+}
+
+.social-share-wrap .social-share-overlay{
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	padding:15px;
+	position:absolute;
+	-webkit-transform:scale(0);
+	        transform:scale(0);
+	-webkit-transition:all .3s ease-in-out 0s;
+	transition:all .3s ease-in-out 0s;
+}
+.social-share-wrap .social-share-overlay:before{
+	top:50%;
+	left:50%;
+	content:'';
+	width:30em;
+	height:30em;
+	margin-top:-15em;
+	border-radius:50%;
+	margin-left:-15em;
+	position:absolute;
+	background:#77bef7;
+	-webkit-transform:inherit;
+	        transform:inherit;
+	-webkit-transition:inherit;
+	transition:inherit;
+}
+.social-share-wrap .social-share-overlay .close{
+	top:0;
+	right:0;
+	color:red;
+	width:40px;
+	height:40px;
+	cursor:pointer;
+	font-size:28px;
+	font-weight:400;
+	line-height:40px;
+	text-align:center;
+	position:absolute;
+}
+.social-share-wrap .social-share-overlay .social-share-links{
+	position:relative;
+}
+.social-share-wrap .social-share-overlay .social-share-links a{
+	opacity:0;
+	color:#eee;
+	margin:auto;
+	max-width:75%;
+	display:block;
+	font-size:18px;
+	margin-top:30px;
+	line-height:24px;
+	margin-bottom:30px;
+	padding:10px 15px;
+	border:2px solid;
+	border-radius:25px;
+	text-decoration:none;
+	-webkit-transition:all .4s ease-in-out 0s;
+	transition:all .4s ease-in-out 0s;
+	-webkit-transition-delay:.5s;
+	        transition-delay:.5s;
+}
+.social-share-wrap .social-share-overlay .social-share-links a:nth-child(1){
+	-webkit-transform:translateY(2em);
+	        transform:translateY(2em);
+	-webkit-transition-duration:.4s;
+	        transition-duration:.4s;
+}
+.social-share-wrap .social-share-overlay .social-share-links a:nth-child(2){
+	-webkit-transform:translateY(3em);
+	        transform:translateY(3em);
+	-webkit-transition-duration:.6s;
+	        transition-duration:.6s;
+}
+.social-share-wrap .social-share-overlay .social-share-links a:nth-child(3){
+	-webkit-transform:translateY(4em);
+	        transform:translateY(4em);
+	-webkit-transition-duration:.8s;
+	        transition-duration:.8s;
+}
+.social-share-wrap .social-share-overlay .social-share-links .fa{
+	min-width:30px;
+	font-size:24px;
+}
+
+.toggle:checked + .social-share-wrap .social-share-overlay{
+	-webkit-transform:scale(1);
+	        transform:scale(1);
+}
+.toggle:checked + .social-share-wrap .cover{
+	opacity:0;
+	-webkit-transform:translateY(-100%);
+	        transform:translateY(-100%);
+}
+.toggle:checked + .social-share-wrap .content .title,
+.toggle:checked + .social-share-wrap .content .text,
+.toggle:checked + .social-share-wrap .content .price{
+	opacity:0;
+	-webkit-transform:translateY(100%);
+	        transform:translateY(100%);
+}
+.toggle:checked + .social-share-wrap .content .label{
+	-webkit-transform:scale(0);
+	        transform:scale(0);
+}
+.toggle:checked + .social-share-wrap .social-share-overlay a{
+	opacity:1;
+	-webkit-transform:translateY(0);
+	        transform:translateY(0);
+}</style></head>
+
+<body >
+<input class="toggle" id="toggle" type="checkbox">
+
+<div style="margin: auto; width: 50%">
+
+<div class="social-share-wrap" ng-if="x.username != null && x.email != $root.LoginEmail" ng-repeat="x in AllUsers">
+	<div class="cover">
+		<img class="image" ng-if="x.profilePicUrl != null" src="{{x.profilePicUrl}}">
+		<img class="image" ng-if="x.profilePicUrl == null" src="images/login.jpg">
+	</div>
+	<div class="content">
+		<label class="label" for="toggle"><i class="fa fa-share-alt"></i></label>
+		<div class="title"><b>{{x.email}}</b></div>
+		<!-- <div class="text">A modern design price tables that is fully responsive and compatible with font-awesome and bootstrap.</div> -->
+		<div class="price">{{x.username}}</div>
+		
+		<a href="#!/profile/{{x.email}}" class="btn btn-warning price">Profile</a>
+		<a href="#!/blog/{{x.email}}" class="btn btn-primary price">Blogs</a>
+		<a href="#!/forum/{{x.email}}" class="btn btn-success price">Forums</a>
+		
+		<button class="btn btn-danger" style="float: right;" ng-if="userData.friends.indexOf(x.email) == -1 && userData.requestsOut.indexOf(x.email) == -1 && userData.requests.indexOf(x.email) == -1" ng-click="AddFriend($root.LoginEmail,x.email)">Add Friend</button>
+		<button class="btn btn-primary" style="float: right;" ng-if="userData.friends.indexOf(x.email) == -1 && userData.requestsOut.indexOf(x.email) > -1 && userData.requests.indexOf(x.email) == -1" ng-click="UndoFriend($root.LoginEmail,x.email)">Undo Request</button>
+		<button class="btn btn-warning" style="float: right;" ng-if="userData.friends.indexOf(x.email) == -1 && userData.requestsOut.indexOf(x.email) == -1 && userData.requests.indexOf(x.email) > -1" ng-click="AcceptFriend($root.LoginEmail,x.email)">Accept Request</button>
+		<button class="btn btn-link" style="float: right;" ng-if="userData.friends.indexOf(x.email) > -1 && userData.requestsOut.indexOf(x.email) == -1 && userData.requests.indexOf(x.email) == -1" ng-click="UnFriend($root.LoginEmail,x.email)">Unfriend</button>
+		
+		<!-- <a class="buy" target="_blank" href="http://codecanyon.net/item/mk-flat-pricing-table/13404608?ref=khadkamhn"><i class="fa fa-shopping-cart"></i> Buy</a> -->
+	</div>
+	<div class="social-share-overlay">
+		<label class="close" for="toggle">×</label>
+		<div class="social-share-links">
+			<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?display=popup&u=http%3A%2F%2Fcodecanyon.net%2Fitem%2Fmk-flat-pricing-table%2F13404608%3Fref%3Dkhadkamhn"><i class="fa fa-facebook"></i> Facebook</a>
+			<a target="_blank" href="https://twitter.com/intent/tweet?text=Check+out+%27MK+Flat+Pricing+Table%27+on+%23EnvatoMarket+by+%40khadkamhn+%23codecanyon&url=http%3A%2F%2Fcodecanyon.net%2Fitem%2Fmk-flat-pricing-table%2F13404608%3Fref%3Dkhadkamhn"><i class="fa fa-twitter"></i> Twitter</a>
+			<a target="_blank" href="https://pinterest.com/pin/create/button?description=MK+Flat+Pricing+Table&media=http%3A%2F%2F0.s3.envato.com%2Ffiles%2F156087519%2Fmk_flat_price_table.png&url=http%3A%2F%2Fcodecanyon.net%2Fitem%2Fmk-flat-pricing-table%2F13404608%3Fref%3Dkhadkamhn"><i class="fa fa-pinterest"></i> Pinterest</a>
+		</div>
+	</div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,378 @@
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+#circle-shape-example { 
+  font-family: Open Sans, sans-serif; 
+  margin: 2rem; 
+}
+#circle-shape-example p { 
+  line-height: 1.8; 
+}
+#circle-shape-example .curve { 
+  width: 33%; height: auto;
+  min-width: 150px;
+  float: left;
+  margin-right:2rem; 
+  border-radius: 50%;
+  -webkit-shape-outside:circle();
+  shape-outside:circle();
+}
+
+.blogShort{ border-bottom:1px solid #ddd;}
+.add{background: #EEE; padding: 10%; height: 100px;}
+
+.nav-sidebar { 
+    width: 100%;
+    padding: 8px 0; 
+    border-right: 1px solid #ddd;
+}
+.nav-sidebar a {
+    color: #333;
+    -webkit-transition: all 0.08s linear;
+    -moz-transition: all 0.08s linear;
+    -o-transition: all 0.08s linear;
+    transition: all 0.08s linear;
+}
+.nav-sidebar .active a { 
+    cursor: default;
+    background-color: #34ca78; 
+    color: #fff; 
+}
+.nav-sidebar .active a:hover {
+    background-color: #37D980;   
+}
+.nav-sidebar .text-overflow a,
+.nav-sidebar .text-overflow .media-body {
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis; 
+}
+
+.btn-blog {
+    color: #ffffff;
+    background-color: #37d980;
+    border-color: #37d980;
+    border-radius:0;
+    margin-bottom:10px
+}
+.btn-blog:hover,
+.btn-blog:focus,
+.btn-blog:active,
+.btn-blog.active,
+.open .dropdown-toggle.btn-blog {
+    color: white;
+    background-color:#34ca78;
+    border-color: #34ca78;
+}
+ h2{color:#34ca78;}
+ .margin10{margin-bottom:10px; margin-right:10px;}
+</style>
+
+
+
+<div id="addForumModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Forum</h4>
+      </div>
+      <div class="modal-body">
+        	
+        	<div class="well">
+        	
+        		<input type="text" class="form-control" placeholder="Enter Title" ng-model="Title.value" ng-change="Title.validate()">
+        		
+        		<br>
+        		
+        		<div ng-if="Title.touched && Title.error" class="text text-default">
+									<h1>Title must be between 2 and 20 characters</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<textarea class="form-control" placeholder="Enter Description" style="resize: none;" ng-model="Description.value" ng-change="Description.validate()"></textarea>
+        		
+        		<br>
+        		
+        		<div ng-if="Description.touched && Description.error" class="text text-default">
+									<h1>Title must be between 2 and 20 characters</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<button class="btn btn-danger" style="margin-left: 25%; margin-right: 25%; width: 50%;" ng-disabled='!( !Title.error && Title.touched && !Description.error && Description.touched)' ng-click="AddForum()">Add</button>
+        	</div>
+        	
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="editForumModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Forum </h4>
+      </div>
+      <div class="modal-body">
+        	
+        	<div class="well">
+        	
+        		<input type="text" class="form-control" placeholder="Enter Title" ng-model="ETitle.value" ng-change="ETitle.validate()">
+        		
+        		<br>
+        		
+        		<div ng-if="ETitle.touched && ETitle.error" class="text text-default">
+									<h1>Title must be between 2 and 20 characters</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<textarea class="form-control" placeholder="Enter Description" style="resize: none;" ng-model="EDescription.value" ng-change="EDescription.validate()"></textarea>
+        		
+        		<br>
+        		
+        		<div ng-if="EDescription.touched && EDescription.error" class="text text-default">
+									<h1>Title must be between 2 and 20 characters</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<button class="btn btn-danger" style="margin-left: 25%; margin-right: 25%; width: 50%;" ng-disabled='!( !ETitle.error && ETitle.touched && !EDescription.error && EDescription.touched)' ng-click="EditForumToDB()">Edit</button>
+        	</div>
+        	
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+	 <div id="blog" class="row"> 
+                
+                  <div class="col-sm-2 paddingTop20" ng-if="!$routeParams.param">
+            <nav class="nav-sidebar">
+                <ul class="nav">
+                    <li class="active"><a data-toggle="modal" data-target="#addForumModal"><span class="glyphicon glyphicon-star"></span> Add Forum</a></li>
+                    <li><button class="btn btn-link" ng-click="setFilterVal('');">View All</button></li>
+                    <li><button class="btn btn-link" ng-click="setFilterVal(true);">View Approved</button></li>
+                    <li><button class="btn btn-link" ng-click="setFilterVal(false);">View Pending</button></li>
+                    
+                    <li class="nav-divider"></li>
+                    
+                </ul>
+            </nav>
+                      <div><h2 class="add"></h2></div>
+        </div>
+        
+        	
+
+
+               <!-- <div class="col-md-12 gap10"></div> -->
+               
+               <div class="col-md-10 blogShort" ng-if="$routeParams.param && !CheckApprovedForums( $routeParams.param )">
+                     
+                     <br>
+                         
+                     <article><p>
+                         No forums yet.
+                         </p></article>
+                     
+                     <br>
+                     
+                      
+                 </div>
+               
+               <div class="col-md-10">
+               
+	               <div id="circle-shape-example" ng-if="!CheckForums( $root.LoginEmail ) && !(AllForums.length != 0 && $root.LoginRole == 'ROLE_ADMIN')">
+					  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/kiwifruit-on-a-plate.jpg" alt="A photograph of sliced kiwifruit on a while plate" class="curve"><h1>Forums</h1>
+					
+					  <p>Welcome to Forums. You haven't added any yet.
+					</div>
+                 
+                 
+                 	<!--  -->
+                 	<!--  -->
+                 	<!--  -->
+                 	
+                 	<h1 ng-if="AllForums.length != 0 && $root.LoginRole == 'ROLE_ADMIN' && !$routeParams.param">Forums for Approval</h1>
+                 	
+                 	<div class="blogShort" style="border-bottom: 5px solid rgb(128,0,0);" ng-if="AllForums.length != 0 && $root.LoginRole == 'ROLE_ADMIN' && !$routeParams.param" ng-repeat="x in AllForums">
+                     
+                     <hr>
+                     
+                     
+                     
+                     <button class="btn btn-danger" ng-if="x.approved" ng-click="RejectForum(x.id)">Reject</button>
+                     
+                     <div ng-if="!x.approved">
+                     	<button class="btn btn-danger" ng-click="RejectForum(x.id)" >Reject</button>
+                     	<button class="btn btn-success" ng-click="ApproveForum(x.id)" >Approve</button>
+                     </div>
+                     
+                     <h1 class="well">{{x.title}}</h1>
+                     
+                     <h1>By - {{x.ownerId}}</h1>
+                     
+                     <br>
+                         
+                     <article><p>
+                         {{x.description}}
+                         </p></article>
+                         
+                     <article><p>
+                         <b>{{x.date}}</b>
+                         </p></article>
+                     
+                     <a class="btn btn-danger pull-right marginBottom10" style="bottom: 20px; position: relative; " ng-click="DeleteForum(x.id)">Delete Forum</a>
+                     &nbsp;
+                     &nbsp;
+                     <a class="btn btn-primary pull-right marginBottom10" style="bottom: 20px; position: relative; margin-right: 20px;" data-toggle="modal" data-target="#editForumModal" ng-click="EditForum(x.id)">Edit Forum</a>
+                     
+                     &nbsp;
+                     &nbsp;
+                     
+                     <textarea class="form-control" placeholder="Comment" style="resize: none;" ng-model="x.Comment"></textarea>
+                     
+                     <a class="btn btn-success" style="margin-top: 20px; margin-right: 20px;margin-bottom: 20px;" ng-click="ForumComment(x.id,x.Comment)">Comment</a>
+                     
+                     <br>
+                      
+                      <div class="well" ng-if="x.comments.length != 0" ng-repeat="y in x.comments">
+                      
+                      	<h5> On <strong>{{y.date}}, {{y.ownerId}}</strong> wrote </h5>	
+                      
+                      	<hr>
+                      	{{y.description}}
+                      	
+                      	<hr>
+                      	
+                      	<button class="btn btn-danger" ng-if="$root.LoginEmail == y.ownerId" ng-click="DeleteComment(y.date,x.id)">Delete</button>
+                      
+                      </div>
+                      
+                      <hr>
+                      
+                 </div>
+                 	
+                 	<!--  -->
+                 	<!--  -->
+                 	<!--  -->
+                 	
+                 	
+                 
+                 <h1 style="background-color: rgba(128,0,0,0.8); box-shadow: 0px 0px 2px grey; color: #FFC706; padding: 20px;" ng-if="CheckForums( $root.LoginEmail ) && !$routeParams.param">My Forums</h1>
+                 
+                 	<div class="blogShort" style="border-bottom: 5px solid rgb(128,0,0);" ng-if="AllForums.length != 0 && x.ownerId == $root.LoginEmail && !$routeParams.param" ng-repeat="x in AllForums | filter:{ approved: filterVal }">
+                     
+                     <h1 class="alert alert-success" ng-if="x.approved">Approved</h1>
+                     <h1 class="alert alert-warning" ng-if="!x.approved">Pending</h1>
+                     
+                     <h1>{{x.title}}</h1>
+                     
+                     <br>
+                         
+                     <article><p>
+                         {{x.description}}
+                         </p></article>
+                         
+                     <article><p>
+                         <b>{{x.date}}</b>
+                         </p></article>
+                     
+                     <a class="btn btn-danger pull-right marginBottom10" style="bottom: 20px; position: relative; " ng-click="DeleteForum(x.id)">Delete Forum</a>
+                     &nbsp;
+                     &nbsp;
+                     <a class="btn btn-primary pull-right marginBottom10" style="bottom: 20px; position: relative; margin-right: 20px;" data-toggle="modal" data-target="#editForumModal" ng-click="EditForum(x.id)">Edit Forum</a>
+                     
+                     &nbsp;
+                     &nbsp;
+                     
+                     <textarea class="form-control" placeholder="Comment" style="resize: none;" ng-model="x.Comment"></textarea>
+                     
+                     <a class="btn btn-success" style="margin-top: 20px; margin-right: 20px;margin-bottom: 20px;" ng-click="ForumComment(x.id,x.Comment)">Comment</a>
+                     
+                     <br>
+                      
+                      <div class="well" ng-if="x.comments.length != 0" ng-repeat="y in x.comments">
+                      
+                      	<h5> On <strong>{{y.date}}, {{y.ownerId}}</strong> wrote </h5>	
+                      
+                      	<hr>
+                      	{{y.description}}
+                      	
+                      	<hr>
+                      	
+                      	<button class="btn btn-danger" ng-if="$root.LoginEmail == y.ownerId" ng-click="DeleteComment(y.date,x.id)">Delete</button>
+                      
+                      </div>
+                      
+                 </div>
+                 
+                 <!--  -->
+                 <!--  -->
+                 <!--  -->
+                 
+                 <div class="blogShort" style="border-bottom: 5px solid rgb(128,0,0);" ng-if="AllForums.length != 0 && x.ownerId == $routeParams.param && x.approved" ng-repeat="x in AllForums">
+                     <h1>{{x.title}}</h1>
+                     
+                     <br>
+                         
+                     <article><p>
+                         {{x.description}}
+                         </p></article>
+                         
+                     <article><p>
+                         <b>{{x.date}}</b>
+                         </p></article>
+                     
+                     <!-- <a class="btn btn-danger pull-right marginBottom10" style="bottom: 20px; position: relative; " ng-click="DeleteForum(x.id)">Delete Forum</a>
+                     &nbsp;
+                     &nbsp;
+                     <a class="btn btn-primary pull-right marginBottom10" style="bottom: 20px; position: relative; margin-right: 20px;" data-toggle="modal" data-target="#editForumModal" ng-click="EditForum(x.id)">Edit Forum</a>
+                     
+                     &nbsp;
+                     &nbsp; -->
+                     
+                     <textarea class="form-control" placeholder="Comment" style="resize: none;" ng-model="x.Comment"></textarea>
+                     
+                     <a class="btn btn-success" style="margin-top: 20px; margin-right: 20px;margin-bottom: 20px;" ng-click="ForumComment(x.id,x.Comment)">Comment</a>
+                     
+                     <br>
+                      
+                      <div class="well" ng-if="x.comments.length != 0" ng-repeat="y in x.comments">
+                      
+                      	<h5> On <strong>{{y.date}}, {{y.ownerId}}</strong> wrote </h5>	
+                      
+                      	<hr>
+                      	{{y.description}}
+                      	
+                      	<hr>
+                      	
+                      	<button class="btn btn-danger" ng-if="$root.LoginEmail == y.ownerId" ng-click="DeleteComment(y.date,x.id)">Delete</button>
+                      
+                      </div>
+                      
+                 </div>
+                 
+                 </div>
+                 
+             </div>
+</div>

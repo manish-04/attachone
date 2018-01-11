@@ -1,0 +1,234 @@
+<style>
+.select-menu
+{
+	-webkit-appearance: none;
+   	-moz-appearance: none;
+   	appearance: none;
+   	-webkit-border-radius: 5px;
+   	outline: 1px solid #CCCCCC;
+   	border: 0px solid #000000;
+   	border-radius: 5px;
+   
+}
+</style>
+
+<div ng-controller="profileController">
+
+<div id="changePasswordModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Change Password</h4>
+      </div>
+      <div class="modal-body">
+        	
+        	<div class="well">
+        	
+        		<input type="password" class="form-control" placeholder="Enter Current Password" ng-model="OPassword.value" ng-change="OPassword.validate()">
+        		
+        		<div ng-if="OPassword.touched && OPassword.error" class="text text-default">
+									<h1>Password doesn't match with the previous one</h1>
+							</div>
+							
+        		<br>
+        		
+        		<input type="password" class="form-control" placeholder="Enter New Password" ng-model="Password.value" ng-change="Password.validate()">
+        		
+        		<div ng-if="Password.touched && Password.error" class="text text-default">
+									<h1>Password must be between 8 and 20 characters and must not be the same as the previous password.</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<input type="password" class="form-control" placeholder="Confirm New Password" ng-model="CPassword.value" ng-change="CPassword.validate()">
+        		
+        		<div ng-if="CPassword.touched && CPassword.error" class="text text-default">
+									<h1>Passwords must match</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<button class="btn btn-danger" style="margin-left: 25%; margin-right: 25%; width: 50%;" ng-disabled='!( !Password.error && Password.touched && !CPassword.error && CPassword.touched && !OPassword.error && OPassword.touched )' ng-click="UpdatePassword()">Update</button>
+        	</div>
+        	
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<form id="fileForm" enctype="multipart/form-data">
+</form>
+
+<div class="container" style="padding-top: -10px;" ng-if="!$routeParams.param">
+  <h1 class="page-header">Edit Profile</h1>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="text-center">
+        <img src="{{profilePicUrl}}" class="avatar img-circle img-thumbnail" style="max-height: 200px; max-width: 200px; padding: 20px; border: 10px solid white; box-shadow: 0px 0px 1px #CCCCCC;" alt="avatar">
+        <h6>Upload a different photo...</h6>
+        <input type="file" id="trigger" class="text-center center-block well well-sm"
+					onchange="angular.element(this).scope().setFile(this)"
+					accept="image/*" file-model="myFile" />
+        
+      </div>
+    </div>
+    <!-- edit form column -->
+    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+      <div class="alert alert-info alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a> 
+        <i class="fa fa-coffee"></i>
+        Your <strong>profile</strong>. 
+      </div>
+      <h3>Personal info</h3>
+      <form class="form-horizontal" role="form">
+        
+        
+        
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input class="form-control" ng-model="Email.value" ng-disabled="true" type="email">
+          </div>
+        </div>
+        
+        
+        <div class="form-group">
+          <label class="col-md-3 control-label">Username:</label>
+          <div class="col-md-8">
+            <input class="form-control" ng-model="Username.value" ng-change="Username.validate()" type="text">
+          
+          	<div ng-if="Username.touched && Username.error" class="text text-default">
+									<h1>Invalid Username</h1>
+							</div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="form-group">
+          <label class="col-md-3 control-label">Phone:</label>
+          <div class="col-md-8">
+            <input class="form-control" ng-model="Phone.value" ng-change="Phone.validate()" type="number">
+            
+            <div ng-if="Phone.touched && Phone.error" class="text text-default">
+									<h1>Phone must be a valid Indian mobile number</h1>
+							</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-md-3 control-label">Gender:</label>
+          <div class="col-md-8">
+            <select class="select-menu form-control" ng-model="Gender" ng-options="x for x in ['Male','Female']">
+									  
+									</select>
+          </div>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Change Password:</label>
+          <div class="col-md-8">
+            
+            <button class="btn btn-success" data-toggle="modal" data-target="#changePasswordModal">Change Password</button>
+            
+          </div>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+          <!-- ng-disabled='!( !Username.error && Username.touched && !Email.error && Email.touched && !Phone.error && Phone.touched && Gender != "" )' -->
+            <input class="btn btn-primary" value="Save Changes" type="button" ng-click="UpdateUser()" ng-disabled='Username.error || Email.error || Phone.error || Gender == "" ' >
+            <span></span>
+            <!-- <input class="btn btn-default" value="Cancel" type="reset"> -->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--  -->
+<!--  -->
+<!--  -->
+
+<div class="container" style="padding-top: -10px;" ng-if="$routeParams.param">
+  <h1 class="page-header">View Profile</h1>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="text-center">
+        <img src="{{profilePicUrl}}" class="avatar img-circle img-thumbnail" style="max-height: 200px; max-width: 200px; padding: 20px; border: 10px solid white; box-shadow: 0px 0px 1px #CCCCCC;" alt="avatar">
+        
+      </div>
+    </div>
+    <!-- edit form column -->
+    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+      <div class="alert alert-info alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a> 
+        <i class="fa fa-coffee"></i>
+        Your <strong>profile</strong>. 
+      </div>
+      <h3>Personal info</h3>
+      <form class="form-horizontal" role="form">
+        
+        
+        
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input class="form-control" ng-model="Email.value" ng-disabled="true" type="email">
+          </div>
+        </div>
+        
+        
+        <div class="form-group">
+          <label class="col-md-3 control-label">Username:</label>
+          <div class="col-md-8">
+            <input class="form-control" ng-model="Username.value" ng-change="Username.validate()" ng-disabled="true" type="text">
+          
+          	<div ng-if="Username.touched && Username.error" class="text text-default">
+									<h1>Invalid Username</h1>
+							</div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="form-group">
+          <label class="col-md-3 control-label">Phone:</label>
+          <div class="col-md-8">
+            <input class="form-control" ng-model="Phone.value" ng-change="Phone.validate()" ng-disabled="true" type="number">
+            
+            <div ng-if="Phone.touched && Phone.error" class="text text-default">
+									<h1>Phone must be a valid Indian mobile number</h1>
+							</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-md-3 control-label">Gender:</label>
+          <div class="col-md-8">
+            <select class="select-menu form-control" ng-model="Gender" ng-disabled="true" ng-options="x for x in ['Male','Female']">
+									  
+									</select>
+          </div>
+        </div>
+        
+        <hr>
+        
+      </form>
+    </div>
+  </div>
+</div>
+
+</div>

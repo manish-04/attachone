@@ -1,0 +1,267 @@
+
+<style>
+.blogShort{ border-bottom:1px solid #ddd;}
+.add{background: #EEE; padding: 10%; height: 100px;}
+
+.nav-sidebar { 
+    width: 100%;
+    padding: 8px 0; 
+    border-right: 1px solid #ddd;
+}
+.nav-sidebar a {
+    color: #333;
+    -webkit-transition: all 0.08s linear;
+    -moz-transition: all 0.08s linear;
+    -o-transition: all 0.08s linear;
+    transition: all 0.08s linear;
+}
+.nav-sidebar .active a { 
+    cursor: default;
+    background-color: #34ca78; 
+    color: #fff; 
+}
+.nav-sidebar .active a:hover {
+    background-color: #37D980;   
+}
+.nav-sidebar .text-overflow a,
+.nav-sidebar .text-overflow .media-body {
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis; 
+}
+
+.btn-blog {
+    color: #ffffff;
+    background-color: #37d980;
+    border-color: #37d980;
+    border-radius:0;
+    margin-bottom:10px
+}
+.btn-blog:hover,
+.btn-blog:focus,
+.btn-blog:active,
+.btn-blog.active,
+.open .dropdown-toggle.btn-blog {
+    color: white;
+    background-color:#34ca78;
+    border-color: #34ca78;
+}
+ h2{color:#34ca78;}
+ .margin10{margin-bottom:10px; margin-right:10px;}
+ 
+ *{
+ border: 0px solid red;
+ }
+</style>
+
+<div id="addJobModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Job</h4>
+      </div>
+      <div class="modal-body">
+        	
+        	<div class="well">
+        	
+        		<input type="text" class="form-control" placeholder="Enter Title" ng-model="Title.value" ng-change="Title.validate()">
+        		
+        		<br>
+        		
+        		<div ng-if="Title.touched && Title.error" class="text text-default">
+									<h1>Title must be between 2 and 20 characters</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<textarea class="form-control" placeholder="Enter Description" style="resize: none;" ng-model="Description.value" ng-change="Description.validate()"></textarea>
+        		
+        		<br>
+        		
+        		<div ng-if="Description.touched && Description.error" class="text text-default">
+									<h1>Title must be between 2 and 20 characters</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<button class="btn btn-danger" style="margin-left: 25%; margin-right: 25%; width: 50%;" ng-disabled='!( !Title.error && Title.touched && !Description.error && Description.touched)' ng-click="AddJob()">Add</button>
+        	</div>
+        	
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="editJobModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Job</h4>
+      </div>
+      <div class="modal-body">
+        	
+        	<div class="well">
+        	
+        		<input type="text" class="form-control" placeholder="Enter Title" ng-model="ETitle.value" ng-change="ETitle.validate()">
+        		
+        		<br>
+        		
+        		<div ng-if="ETitle.touched && ETitle.error" class="text text-default">
+									<h1>Title must be between 2 and 20 characters</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<textarea class="form-control" placeholder="Enter Description" style="resize: none;" ng-model="EDescription.value" ng-change="EDescription.validate()"></textarea>
+        		
+        		<br>
+        		
+        		<div ng-if="EDescription.touched && EDescription.error" class="text text-default">
+									<h1>Title must be between 2 and 20 characters</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<button class="btn btn-danger" style="margin-left: 25%; margin-right: 25%; width: 50%;" ng-disabled='!( !ETitle.error && ETitle.touched && !EDescription.error && EDescription.touched)' ng-click="EditJobToDB()">Edit</button>
+        	</div>
+        	
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+	 <div id="job" class="row"> 
+                
+      	<div class="col-sm-2 paddingTop20" style="" ng-if="$root.LoginRole == 'ROLE_ADMIN'">
+            <nav class="nav-sidebar">
+                <ul class="nav">
+                    <li class="active"><a data-toggle="modal" data-target="#addJobModal"><span class="glyphicon glyphicon-star"></span> Add Job</a></li>
+                    <!-- <li><a href="javascript:;">View All</a></li>
+                    <li><a href="javascript:;">View Approved</a></li>
+                    <li><a href="javascript:;">View Pending</a></li> -->
+                    
+                    <li class="nav-divider"></li>
+                    
+                </ul>
+            </nav>
+                      <div><h2 class="add"></h2></div>
+        </div>
+        
+        		<div class="col-md-10 blogShort"  ng-if="AllJobs.length==0 && $root.LoginRole=='ROLE_ADMIN'">
+                     <h1>Welcome to Jobs</h1>
+                     
+                     <br>
+                         
+                     <article><p>
+                         You haven't added any Jobs yet. Click on Add Job to start publishing.
+                         </p></article>
+                     
+                     <br>
+                     
+                     <a class="btn btn-blog pull-right marginBottom10" data-toggle="modal" data-target="#addJobModal">Add Job</a> 
+                 </div>
+                 
+                 <div class="col-md-10 blogShort"  ng-if="AllJobs.length==0 && $root.LoginRole!='ROLE_ADMIN'">
+                     <h1>No Jobs Yet</h1>
+                     
+                     <br>
+                      
+                 </div>
+                 
+                 <div class="col-md-10">
+                 
+                 	<div class="blogShort" style="" ng-if="AllJobs.length != 0" ng-repeat="x in AllJobs">
+                     <h1>{{x.title}}</h1>
+                     
+                     <br>
+                         
+                     <article><p>
+                         {{x.description}}
+                         </p></article>
+                         
+                     <article><p>
+                         <b>{{x.date}}</b>
+                         </p></article>
+                     
+                     <a ng-if="$root.LoginRole == 'ROLE_ADMIN'" class="btn btn-danger pull-right marginBottom10" style="bottom: 20px; position: relative; " ng-click="DeleteJob(x.id)">Delete Job</a>
+                     &nbsp;
+                     &nbsp;
+                     <a ng-if="$root.LoginRole == 'ROLE_ADMIN'" class="btn btn-primary pull-right marginBottom10" style="bottom: 20px; position: relative; margin-right: 20px;" data-toggle="modal" data-target="#editJobModal" ng-click="EditJob(x.id)">Edit Job</a>
+                     <br>
+                      
+                      <h1>Total Applicants: {{x.applicants.length}}</h1>
+                      
+                      <a href="#!/profile/{{y}}" ng-if="$root.LoginRole == 'ROLE_ADMIN'" class="text text-primary" ng-repeat="y in x.applicants">{{y}}</a>
+                      <br>
+                      <br>
+                      
+                      <a ng-if="$root.LoginRole != 'ROLE_ADMIN' && x.applicants.indexOf($root.LoginEmail) == -1" class="btn btn-success pull-right" style="bottom: 20px; position: relative; margin-right: 20px;" ng-click="ApplyJob($root.LoginEmail,x.id)">Apply</a>
+                      
+                      <a ng-if="$root.LoginRole != 'ROLE_ADMIN' && x.applicants.indexOf($root.LoginEmail) > -1" class="btn btn-danger pull-right" style="bottom: 20px; position: relative; margin-right: 20px;" ng-click="WithdrawApplyJob($root.LoginEmail,x.id)">Withdraw Application</a>
+                      
+                 </div>
+                 
+                 </div>
+                 
+        
+                 <!-- <div class="col-md-10 blogShort">
+                     <h1>Title 1</h1>
+                     <img src="http://www.kaczmarek-photo.com/wp-content/uploads/2012/06/guinnes-150x150.jpg" alt="post img" class="pull-left img-responsive thumb margin10 img-thumbnail">
+                     
+                         <em>This snippet use <a href="http://bootsnipp.com/snippets/featured/sexy-sidebar-navigation" target="_blank">Sexy Sidebar Navigation</a></em>
+                     <article><p>
+                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                         ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only 
+                         five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release
+                         of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
+                         Lorem Ipsum.    
+                         </p></article>
+                     <a class="btn btn-blog pull-right marginBottom10" href="http://bootsnipp.com/user/snippets/2RoQ">READ MORE</a> 
+                 </div>
+                  <div class="col-md-10 blogShort">
+                     <h1>Title 2</h1>
+                     <img src="http://www.kaczmarek-photo.com/wp-content/uploads/2012/06/DSC_4073-150x150.jpg" alt="post img" class="pull-left img-responsive thumb margin10 img-thumbnail">
+                     <article><p>
+                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                         ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only 
+                         five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release
+                         of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
+                         Lorem Ipsum.
+                         </p></article>
+                     <a class="btn btn-blog pull-right marginBottom10" href="http://bootsnipp.com/user/snippets/2RoQ">READ MORE</a> 
+                 </div>
+                 
+                  <div class="col-md-10 blogShort">
+                     <h1>Title 3</h1>
+                     <img src="http://www.kaczmarek-photo.com/wp-content/uploads/2012/06/DSC_1681-150x150.jpg" alt="post img" class="pull-left img-responsive thumb margin10 img-thumbnail">
+                     <article><p>
+                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                         ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only 
+                         five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release
+                         of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
+                         Lorem Ipsum.
+                         </p></article>
+                     <a class="btn btn-blog pull-right marginBottom10" href="http://bootsnipp.com/user/snippets/2RoQ">READ MORE</a> 
+                 </div> -->
+                 
+               <div class="col-md-12 gap10"></div>
+             </div>
+</div>

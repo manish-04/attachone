@@ -1,0 +1,283 @@
+
+<style>
+/*
+/* Created by Filipe Pina
+ * Specific styles of signin, register, component
+ */
+/*
+ * General styles
+ */
+ 
+.select-menu
+{
+	-webkit-appearance: none;
+   	-moz-appearance: none;
+   	appearance: none;
+   	-webkit-border-radius: 5px;
+   	outline: 1px solid #CCCCCC;
+   	border: 0px solid #000000;
+   	border-radius: 5px;
+   
+}
+
+#playground-container {
+    height: 500px;
+    overflow: hidden !important;
+    -webkit-overflow-scrolling: touch;
+}
+body, html{
+     background: -webkit-linear-gradient(45deg, hsla(165,11%,86%,1) 0%,hsla(169,12%,72%,1) 22%,hsla(169,12%,64%,1) 33%,hsla(170,12%,60%,1) 50%,hsla(169,12%,56%,1) 67%,hsla(171,8%,33%,1) 82%,hsla(0,0%,5%,1) 100%); /* Chrome10-25,Safari5.1-6 */
+}
+
+.main{
+ 	margin:50px 15px;
+}
+
+h1.title { 
+	font-size: 50px;
+	font-family: 'Passion One', cursive; 
+	font-weight: 400; 
+}
+
+hr{
+	width: 10%;
+	color: #fff;
+}
+
+.form-group{
+	margin-bottom: 15px;
+}
+
+label{
+	margin-bottom: 15px;
+}
+
+input,
+input::-webkit-input-placeholder {
+    font-size: 11px;
+    padding-top: 3px;
+}
+
+.main-login{
+ 	background-color: #26ffff;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 30px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+
+}
+.form-control {
+    height: auto!important;
+padding: 8px 12px !important;
+}
+.input-group {
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+}
+#button {
+    border: 1px solid #ccc;
+    margin-top: 28px;
+    padding: 6px 12px;
+    color: #666;
+    text-shadow: 0 1px #fff;
+    cursor: pointer;
+    -moz-border-radius: 3px 3px;
+    -webkit-border-radius: 3px 3px;
+    border-radius: 3px 3px;
+    -moz-box-shadow: 0 1px #fff inset, 0 1px #ddd;
+    -webkit-box-shadow: 0 1px #fff inset, 0 1px #ddd;
+    box-shadow: 0 1px #fff inset, 0 1px #ddd;
+    background: #f5f5f5;
+    background: -moz-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #eeeeee));
+    background: -webkit-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    background: -o-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    background: -ms-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    background: linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#eeeeee', GradientType=0);
+}
+.main-center{
+ 	margin-top: 30px;
+ 	margin: 0 auto;
+ 	max-width: 400px;
+    padding: 10px 40px;
+	background:#009edf;
+	    color: #FFF;
+    text-shadow: none;
+	-webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
+-moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
+box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
+
+}
+span.input-group-addon i {
+    color: #009edf;
+    font-size: 17px;
+}
+
+.login-button{
+	margin-top: 55px;
+}
+
+.login-register{
+	font-size: 11px;
+	text-align: center;
+}
+
+</style>
+
+<div id="loginModal" class="modal fade" role="dialog" style="background-color: #73548C;">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="border-radius: 30px; background: url(images/Man.jpg); background-size: cover; ">
+      <div class="modal-header" style="border-bottom: none;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" style="font-family: 'Courgette', cursive; font-size: 38px; color: #FFFFFF;">Login</h4>
+      </div>
+      <div class="modal-body">
+        	
+        	<div style="background-color: #003300; padding: 40px;">
+        	
+        		<input type="text" class="form-control" placeholder="Enter Email" ng-model="LoginEmail.value" ng-change="LoginEmail.validate()">
+        		
+        		<div ng-if="LoginEmail.touched && LoginEmail.error" class="text text-default" style="color: #fff">
+									<h1>Email cannot be empty</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<input type="password" class="form-control" placeholder="Enter Password" ng-model="LoginPassword.value" ng-change="LoginPassword.validate()">
+        		
+        		<div ng-if="LoginPassword.touched && LoginPassword.error" class="text text-default" style="color: #fff">
+									<h1>Password cannot be empty</h1>
+							</div>
+        		
+        		<br>
+        		
+        		<button class="btn btn-success" style="margin-left: 25%; margin-right: 25%; width: 50%;" ng-disabled='!( !LoginPassword.error && LoginPassword.touched && !LoginEmail.error && LoginEmail.touched )' ng-click="PerformLogin()">Login</button>
+        	</div>
+        	
+        
+      </div>
+      <div class="modal-footer" style="border-top: none;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container" ng-controller="homeController" >
+			
+			<div class="row main">
+			
+				<div class="main-login main-center" style="background: url(images/Man.jpg);">
+				
+				<br>
+				
+				<button class="btn btn-success btn-lg" style="margin-left: 25%; margin-right: 25%; width: 50%;" data-toggle="modal" data-target="#loginModal">Login</button>
+				
+				<br>
+				
+				<h1 style=" padding-bottom: 20px;  padding-top: 20px; font-family:Algerian;text-align:center;color:white">Sign Up</h1>
+						
+						
+						<div class="form-group">
+							<label for="email" class="cols-sm-2 control-label">Your Email</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" ng-model="Email.value" ng-change="Email.validate()"/>
+								</div>
+							</div>
+							
+							<div ng-if="Email.touched && Email.error" class="text text-default">
+									<h1>Invalid Email</h1>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="username" class="cols-sm-2 control-label">Username</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" ng-model="Username.value" ng-change="Username.validate()"/>
+									
+								</div>
+							</div>
+							
+							<div ng-if="Username.touched && Username.error" class="text text-default">
+									<h1>Invalid Username</h1>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="password" class="cols-sm-2 control-label">Password</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" ng-model="Password.value" ng-change="Password.validate()"/>
+								</div>
+							</div>
+							
+							<div ng-if="Password.touched && Password.error" class="text text-default">
+									<h1>Password must be between 8 and 20 characters</h1>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password" ng-model="CPassword.value" ng-change="CPassword.validate()"/>
+								</div>
+							</div>
+							
+							<div ng-if="CPassword.touched && CPassword.error" class="text text-default">
+									<h1>Passwords must match</h1>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">Phone</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-phone fa-lg" aria-hidden="true"></i></span>
+									<input type="number" class="form-control" name="confirm" id="confirm"  placeholder="Enter your Phone Number" ng-model="Phone.value" ng-change="Phone.validate()"/>
+								</div>
+							</div>
+							
+							<div ng-if="Phone.touched && Phone.error" class="text text-default">
+									<h1>Phone must be a valid Indian mobile number</h1>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">Gender</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-transgender fa-lg" aria-hidden="true"></i></span>
+									
+									<select class="select-menu form-control" ng-model="Gender" ng-options="x for x in ['Male','Female']">
+									  
+									</select>
+
+									
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<button ng-disabled='!( !Username.error && Username.touched && !Email.error && Email.touched && !Password.error && Password.touched && !CPassword.error && CPassword.touched && !Phone.error && Phone.touched && Gender != "" )' ng-click="RegisterUser()" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+							
+						</div>
+						
+					
+				</div>
+			</div>
+		</div>

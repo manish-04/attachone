@@ -1,0 +1,311 @@
+
+<!DOCTYPE html><html class=''>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+
+<style class="cp-pen-styles">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+html, body {
+  background: -webkit-linear-gradient(45deg, hsla(120,38%,79%,1) 0%,hsla(120,38%,65%,1) 17%,hsla(120,38%,51%,1)
+   33%,hsla(120,100%,27%,1) 67%,hsla(120,100%,17%,1) 83%,hsla(120,100%,7%,1) 100%); 
+  overflow: hidden;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: block;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 86vh;
+  width: 80vw;
+  max-height: 106vh;
+}
+
+.container h1 {
+  margin: 0.5em auto;
+  color: #FFF;
+  text-align: center;
+}
+
+.chatbox {
+  background: rgba(255, 255, 255, 0.05);
+  /* width: 600px; */
+  height: 100%;
+  border-radius: 0.2em;
+  position: relative;
+  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chatbox__messages_other .chatbox__messages__user-message--ind-message {
+   float: right;
+   
+}
+
+.chatbox__messages_other .chatbox__messages__user-message--ind-message:after {
+  content: '';
+  position: absolute;
+  margin: -1.5em -17.06em;
+  width: 0;
+  height: 0;
+  padding-right: -20px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid rgba(255, 255, 255, 0.2);
+}
+
+.chatbox__messages_self .chatbox__messages__user-message--ind-message {
+  /* float: left; */
+}
+
+.chatbox__messages_self .chatbox__messages__user-message--ind-message:after {
+  content: '';
+  position: absolute;
+  margin: -15px 120px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid rgba(255, 255, 255, 0.2);
+}
+
+.chatbox__messages__user-message {
+  width: 650px;
+}
+
+.chatbox__messages__user-message--ind-message {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1em 0;
+  height: auto;
+  width: 65%;
+  border-radius: 5px;
+  margin: 2em 1em;
+  overflow: auto;
+}
+
+.chatbox__messages__user-message--ind-message > p.name {
+  color: #FFF;
+  font-size: 1em;
+}
+
+.chatbox__messages__user-message--ind-message > p.message {
+  color: #FFF;
+  font-size: 0.7em;
+  margin: 0 2.8em;
+}
+
+.chatbox__user-list {
+  background: rgba(255, 255, 255, 0.1);
+  width: 25%;
+  height: 100%;
+  right: 0px;
+  float: right;
+  position: fixed;
+  top: 55px;
+  
+  border-top-right-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+}
+
+.chatbox__user-list h1 {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9em;
+  padding: 1em;
+  margin: 0;
+  font-weight: 300;
+  text-align: center;
+}
+
+.chatbox__user, .chatbox__user--active, .chatbox__user--busy, .chatbox__user--away {
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 100%;
+  margin: 1em 0.7em;
+}
+
+.chatbox__user--active {
+  background: rgba(23, 190, 187, 0.8);
+}
+
+.chatbox__user--busy {
+  background: rgba(252, 100, 113, 0.8);
+}
+
+.chatbox__user--away {
+  background: rgba(255, 253, 130, 0.8);
+}
+
+.chatbox p {
+  float: left;
+  text-align: left;
+  margin: -0.25em 2em;
+  font-size: 0.9em;
+  font-weight: 300;
+  color: #FFF;
+  width: 200px;
+}
+
+.theInput {
+  /* background: #222; */
+}
+
+.theInput_form_input {
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  width: 75%;
+  padding: 1.2em;
+  outline: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+}
+
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+</style></head><body>
+<h1>Chat Box</h1>
+
+<div class="tab">
+
+
+	<span ng-repeat="x in AllChats" class="tablinks" id="tablinks_{{x.Name}}" ng-click="openCity($event, x.Name)">
+		<button class="btn btn-default">{{x.Name}}</button>
+		<button class="btn btn-danger" style="background-color: red; " ng-if="x.Name != 'All'" ng-click="removeChat( x.Name)">X</button>
+	</span>
+
+  
+  
+</div>
+
+<div class='tabcontent' id="{{x.Name}}" ng-repeat="x in AllChats track by $index">
+
+	
+
+	<br>
+
+	<div class="row">
+	
+		<div class="col-lg-12">
+		
+		
+		<form class="theInput">
+		    <input type="text" class="theInput_form_input" ng-model="x.Msg" placeholder="Type Message" my-enter="sendMessage(x.Name,$index)">
+		    </form>
+		</div>
+	
+	</div>
+
+	<div class="row">
+	
+		<div class="col-lg-9" >
+				<div class='chatbox' style="overflow-x: hidden; overflow-y: auto; max-height: 400px;" >
+					<br>
+		    		<div class="" ng-class="message.Name == currUser? 'chatbox__messages_self' : 'chatbox__messages_other'"  ng-repeat="message in x.messages | reverse">
+		      			<div class="chatbox__messages__user-message_self" ng-if="message.Name != $root.LoginEmail">
+		        			<div class="chatbox__messages__user-message--ind-message">
+		          				<p class="name">{{message.by}}</p>
+		          			<br/>
+		          			<p class="message">{{message.Message}}</p>
+		          			<br/>
+		          			<p class="message">{{message.date}}</p>
+		        			</div>
+		        			
+		        			
+		      			</div>
+		      			
+		      			
+		      			<div class="chatbox__messages__user-message_other" ng-if="message.Name == $root.LoginEmail">
+		        			<div class="chatbox__messages__user-message--ind-message">
+		          				<p class="name">{{message.by}}</p>
+		          			<br/>
+		          			<p class="message">{{message.Message}}</p>
+		          			<br/>
+		          			<p class="message">{{message.date}}</p>
+		        			</div>
+		        			
+		        			
+		      			</div>
+		      			
+		   			</div>
+		   			
+		   			
+		    
+				</div>
+		</div>
+		
+	
+	</div>
+
+</div>
+
+  
+  
+
+  
+  
+
+</body></html>

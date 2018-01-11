@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>Attachone</title>
+
+<link rel="import" href="head-meta.html">
+
+</head>
+
+<script src ="app.js"></script>
+<script src ="homeController.js"></script>
+<script src ="blogController.js"></script>
+<script src ="jobController.js"></script>
+<script src ="forumController.js"></script>
+<script src ="friendController.js"></script>
+<script src ="profileController.js"></script>
+<script src ="chatController.js"></script>
+<script src ="aboutusController.js"></script>
+
+<body>
+
+<nav class="navbar navbar-inverse"  border: none; font-family: 'Poppins', sans-serif; border-radius: 0px;" ng-controller="navController">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+        <a class="navbar-brand" href="#!/home" style="font-size:45px;font-weight:bold;font-family:Cooper BlacK;color:#26ff4a">AttachOne</a>  
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-left" ng-show="!$root.LoginStatus">
+      
+      	<li><a href="#!/home" style="color: white; font-family: 'Poppins', sans-serif;">Home</a></li>
+      	<li><a href="#!/aboutus" style="color: white; font-family: 'Poppins', sans-serif;">About Us</a></li>
+      	
+      	
+      	
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-left" ng-show="$root.LoginStatus">
+      
+      	<li><a href="#!/blog" style="color: white; font-family: 'Poppins', sans-serif;">Blogs</a></li>
+      	<li><a href="#!/forum" style="color: white; font-family: 'Poppins', sans-serif;">Forums</a></li>
+      	<li><a href="#!/profile" style="color: white; font-family: 'Poppins', sans-serif;">Profile</a></li>
+      	<li><a href="#!/friend" style="color: white; font-family: 'Poppins', sans-serif;">Friends</a></li>
+      	<li><a href="#!/job" style="color: white; font-family: 'Poppins', sans-serif;">Jobs</a></li>
+      	<li><a href="#!/chat" style="color: white; font-family: 'Poppins', sans-serif;">Chat</a></li>
+      	<!-- <li><a href="#!/groupchat" style="color: white; font-family: 'Poppins', sans-serif;">Group Chat</a></li> -->
+      	
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+      	<li>
+        	<div class="container-fluid">
+        		
+        		<div class="row" ng-show="$root.LoginStatus">
+        		
+        			<div class="col-lg-4">
+        				<br>
+        				<label style="color:white;">Welcome {{$root.LoginEmail}}</label>
+        			</div>
+        			
+        			<div class="col-lg-4">
+        				<br>
+        				<button class="btn btn-link" style="color: white;" ng-click="logout()">Log Out</button>
+        			</div>
+        			
+        		</div>
+        		
+        	
+        	</div>
+        	
+        	
+        </li>
+      </ul>
+    
+    </div>
+  </div>
+</nav>
+
+<div class ="container">
+  <div ng-view>
+  </div>
+</div>  		
+		<br>
+		<br>
+		<br>
+
+
+</body>
+</html>
